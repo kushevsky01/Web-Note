@@ -26,6 +26,9 @@ public class User {
     private String username;
     private String password;
     private String secondPassword;
+
+    private String active;
+
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
 

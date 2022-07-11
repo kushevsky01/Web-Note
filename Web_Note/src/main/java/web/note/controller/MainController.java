@@ -55,7 +55,6 @@ public class MainController {
         for (Role role:roles)
             userRole = role.getName();
         model.addAttribute("userRole", userRole);
-        model.addAttribute("getList", getList);
         model.addAttribute("toDoListView", toDoListView);
         return "main";
     }
@@ -106,7 +105,6 @@ public class MainController {
     @PostMapping("/tolistAffairs/redirect")
     public String redirectAffair(@RequestParam Long affairId,
                                  @RequestParam String affairName){
-
         Affairs affairs = affairsRepository.findById(affairId).get();
         affairs.setName(affairName);
         affairs.setUpdateTime(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(new Date()));
@@ -115,28 +113,19 @@ public class MainController {
     }
 
     @PostMapping("/affair/checkboxFalse")
-    public String getCheckBox(@RequestParam Long affairId, @RequestParam String checkbox){
+    public String getCheckBoxFalse(@RequestParam Long affairId){
 
         Affairs affairs = affairsRepository.findById(affairId).get();
-
-        if (checkbox.equals("true")){
-            affairs.setDone("true");
-        }
-
+        affairs.setDone("true");
         affairsRepository.saveAndFlush(affairs);
-        System.out.println(affairId);
-        System.out.println(checkbox);
-
         return "redirect:/main";
     }
 
     @PostMapping("/affair/checkboxTrue")
-    public String getCheckBox(@RequestParam Long affairId){
+    public String getCheckBoxTrue(@RequestParam Long affairId){
         Affairs affairs = affairsRepository.findById(affairId).get();
         affairs.setDone("false");
         affairsRepository.saveAndFlush(affairs);
-        System.out.println(affairId);
-
         return "redirect:/main";
     }
 

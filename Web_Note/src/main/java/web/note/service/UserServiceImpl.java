@@ -34,6 +34,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found in the database");
         }
+
+        if(user.getActive().equals("banned")){
+            throw new UsernameNotFoundException("User is banned");
+        }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role : user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return false;
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive("active");
         userRepository.save(user);
         return true;
     }

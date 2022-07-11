@@ -40,6 +40,7 @@ public class RegistrationController {
                     "Пользователь с таким именем уже существует");
             return "registration";
         }
+
         userService.addRoleToUser(userForm.getUsername(), "ROLE_USER");
         return "redirect:/";
     }
