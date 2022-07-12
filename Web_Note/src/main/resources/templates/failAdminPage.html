@@ -12,6 +12,17 @@
             font-family: "Raleway", sans-serif
         }
 
+        table {
+            border-spacing: 7px 11px;
+            text-align: center;
+            width: 100%;
+        }
+
+        td, th {
+            padding: 10px 0;
+            text-align: center;
+        }
+
         .circle {
             width: 60px;
             height: 60px;
@@ -392,259 +403,17 @@
     </style>
 </head>
 <body>
+<br>
+<br>
+<br>
 
-<scan th:if="${user.role == 'ROLE_USER'} ">
-
-    <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
-         style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
-        <a class="w3-bar-item w3-center w3-padding-32" style="color:#e6b333"><p th:text="${user.username}"></p></a>
-        <a href="javascript:void()" onclick="w3_close()"
-           class="w3-bar-item w3-button w3-center w3-padding-32 w3-hover-orange" style="color:#e6b333">CLOSE</a>
-
-        <a href="/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32 w3-hover-orange"
-           style="color:#e6b333"> EXIT</a>
-    </nav>
-
-    <!-- Top menu on small screens -->
-    <header class="w3-container w3-top w3-black w3-xlarge w3-padding-16">
-        <span class="w3-left w3-padding"><p style="color: #e6b333"> Online - Note </p></span>
-        <a href="javascript:void(0)" class="w3-right w3-padding-22" onclick="w3_open()">
-            <div class="circle" style="margin-left:-3cm;"><p th:text="${user.username.charAt(0)}"></p></div>
-        </a>
-    </header>
-</scan>
-
-<scan th:if="${user.role == 'ROLE_ADMIN'}">
-    <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
-         style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
-        <a class="w3-bar-item w3-center w3-padding-" style="color:#e6b333"><p th:text="${user.username}"></p></a>
-        <a href="javascript:void()" onclick="w3_close()"
-           class="w3-bar-item w3-button w3-center w3-padding-32 w3-padding-16 w3-hover-orange" style="color:#e6b333">CLOSE</a>
-        <a href="/admin" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32 w3-hover-orange"
-           style="color:#e6b333">USERS</a>
-        <a href="/logout" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32 w3-hover-orange"
-           style="color:#e6b333"> EXIT</a>
-    </nav>
-
-    <!-- Top menu on small screens -->
-    <header class="w3-container w3-top w3-black w3-xlarge w3-padding-16">
-        <span class="w3-left w3-padding"><p style="color: #e6b333">Online Note (admin)</p></span>
-        <a href="javascript:void(0)" class="w3-right w3-padding-22" onclick="w3_open()">
-            <div class="circle" style="margin-left:-3cm;"><p th:text="${user.username.charAt(0)}"></p></div>
-        </a>
-    </header>
-</scan>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu"
-     id="myOverlay"></div>
-
-<script>
-    // Script to open and close sidebar
-    function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-    }
-
-    function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-    }
-</script>
-
-<div id="overlay">
-    <div class="popup">
-        <button class="close" title="Закрыть окно" onclick="swa2()"></button>
-        <p class="zag">Название дела</p>
-        <form action="/tolist" method="post">
-            <input name="toDoList" class="inputText">
-            <input type="hidden" name="userId" th:value="${user.getId()}">
-            <button type="submit" style="font-size : 20px;">Добавить</button>
-        </form>
-    </div>
-</div>
-
-<scan th:if="${toDoListView.name != null}">
-    <div id="overlay1">
-        <div class="popup">
-            <button class="close" title="Закрыть окно" onclick="swa4()"></button>
-            <p class="zag">Добавить дела</p>
-            <form action="/tolistAffairs" method="post">
-                <input name="affair" class="inputText">
-                <input type="hidden" name="toDoListId" th:value="${toDoListView.getId()}">
-                <input type="hidden" name="toDoListName" th:value="${toDoListView.name}">
-                <input type="hidden" name="userId" th:value="${user.getId()}">
-                <button type="submit" style="font-size : 20px;">Добавить</button>
-            </form>
-        </div>
-    </div>
-</scan>
+<h1 style="margin-left:45%; margin-top:70px">Oops....</h1><br><br>
+<h1 style="margin-left:27%;"> Error </h1><br>
 
 
-<div id="overlay2">
-    <div class="popup">
-        <button class="close" title="Закрыть окно" onclick="swa6()"></button>
-        <p class="zag">Изменить</p>
-        <form th:action="@{/tolistAffairs/redirect}" method="post">
-            <input type="hidden" name="affairId" id="Iid">
-            <!--                    <input  name="affairid" id="Iid" >-->
-            <input name="affairName" id="Naame">
-            <button type="submit" style="font-size : 15px;">Изменить</button>
-        </form>
-    </div>
-</div>
-
-
-<div class="ui icon input" style="margin-top:13%; margin-right:15px;">
-    <input type="text" placeholder="Search..." style="margin-left:15px;background:#c0c0c0">
-    <i class="inverted circular search link icon"></i>
-</div>
-
-
-<div class="ui vertical menu" style="margin-top:1%; margin-left:15px; background:#c0c0c0">
-    <div class="item">
-        <div class="header">Список дел</div>
-        <div class="menu" th:each="toDoList: ${user.toDoLists}">
-            <a href="/todolist/affairs"
-               th:href="@{/todolist/affairs(toDoListName=${toDoList.name}, userId=${user.getId()}, toDoListViewId=${toDoList.getId()})}"
-               class="item" th:text="${toDoList.name}"></a>
-        </div>
-    </div>
-    <div class="ui icon button" data-tooltip="Add to your field" onclick="swa()">
-        <i class="add icon"></i>
-    </div>
-</div>
-
-
-<scan th:if="${toDoListView.name != null}">
-    <div class="ui segment"
-         style="width:60%; margin-left:25%; margin-bottom:50%;  background:#4c5253;position:absolute; top:38%;">
-
-        <div class="ui two column very relaxed grid" th:each="affair: ${toDoListView.affairses}">
-            <div class="column">
-                <div class="ui relaxed divided list">
-                    <div class="item">
-                        <div class="content">
-                            <a class="header" th:text="${affair.name}"></a>
-                            <div class="description" th:text="${affair.updateTime}"></div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="column">
-                <table>
-                    <td>
-                        <scan th:if="${affair.done == 'false'}">
-                            <form action="/affair/checkboxFalse" method="post" if="checkBox">
-                                <div class="ui toggle checkbox">
-                                    <input type="hidden" name="affairId" th:value="${affair.id}">
-                                    <input type="checkbox" name="checkbox" value="true" onclick="this.form.submit()">
-                                    <label></label>
-                                </div>
-                            </form>
-                        </scan>
-                        <scan th:if="${affair.done == 'true'}">
-                            <form action="/affair/checkboxTrue" method="post">
-                                <div class="ui toggle checkbox">
-                                    <input type="hidden" name="affairId" th:value="${affair.id}">
-                                    <input type="checkbox" name="checkbox" checked onclick="this.form.submit()">
-                                    <label>Выполнено</label>
-                                </div>
-                            </form>
-                        </scan>
-                    </td>
-                    <td>
-
-
-                        <a>
-                            <i class="pencil alternate icon" style="margin-left:90px;"
-                               th:attr="onclick=|swa5('${affair.name}', '${affair.id}')|"></i>
-                        </a>
-                    <td>
-                        <a href="/affairs/delete" th:href="@{/affairs/delete(affairId=${affair.getId()})}">
-                            <i class="cut icon" style="margin-left:40px;"></i>
-                        </a>
-                    </td>
-
-                </table>
-
-
-            </div>
-        </div>
-        <div class="ui icon button" data-tooltip="Add to your field" onclick="swa3()"
-             style="margin-left:20px; margin-top:10px;">
-            <i class="add icon"></i>
-        </div>
-        <div class="ui vertical divider">
-            <->
-        </div>
-
-    </div>
-</scan>
-
-<scan th:if="${toDoListView.name != null}">
-    <div class="ui relaxed divided list" style="margin-left:25%; margin-bottom:30%; position:absolute; top:25%;">
-        <div class="item">
-            <div class="content">
-                <a class="header" style="font-size:30px" th:text="${toDoListView.name}"></a>
-                <div class="description" th:text="${toDoListView.createTime}"></div>
-            </div>
-        </div>
-    </div>
-
-    <a href="/toDoList/delete" th:href="@{/toDoList/delete(toDoListViewId=${toDoListView.getId()})}">
-        <i class="trash alternate outline icon" style="font-size: 3em; position:absolute; margin-left:75%;top:29%;"></i>
-    </a>
-</scan>
-
-
-<script>
-    b = document.getElementById('overlay');
-    c = document.getElementById('overlay1');
-    e = document.getElementById('overlay2');
-
-    document.getElementById('checkBox').onsubmit;
-
-    function swa() {
-        b.style.visibility = 'visible';
-        b.style.opacity = '1';
-        b.style.transition = 'all 0.7s ease-out 0s';
-    }
-
-    function swa2() {
-        b.style.visibility = 'hidden';
-        b.style.opacity = '0';
-    }
-
-    function swa3() {
-        c.style.visibility = 'visible';
-        c.style.opacity = '1';
-        c.style.transition = 'all 0.7s ease-out 0s';
-    }
-
-    function swa4() {
-        c.style.visibility = 'hidden';
-        c.style.opacity = '0';
-    }
-
-    function swa5(name, id) {
-        e.style.visibility = 'visible';
-        e.style.opacity = '1';
-        e.style.transition = 'all 0.7s ease-out 0s';
-        document.getElementById("Iid").value = id;
-        document.getElementById("Naame").value = name;
-    }
-
-    function swa6() {
-        e.style.visibility = 'hidden';
-        e.style.opacity = '0';
-    }
-
-</script>
+<a href="/main">
+    <i class="share square outline icon" style="font-size: 3em; margin-left:47%; margin-top:5%;"></i>
+</a>
 
 </body>
 </html>

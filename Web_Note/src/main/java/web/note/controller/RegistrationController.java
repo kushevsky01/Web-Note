@@ -35,13 +35,16 @@ public class RegistrationController {
             return "registration";}
 
 
+
+        userForm.setActive("active");
+        userForm.setRole("ROLE_USER");
         if (!userService.saveUser(userForm)) {
             model.addAttribute("usernameError",
                     "Пользователь с таким именем уже существует");
             return "registration";
         }
 
-        userService.addRoleToUser(userForm.getUsername(), "ROLE_USER");
+//        userService.addRoleToUser(userForm.getUsername(), "ROLE_USER");
         return "redirect:/";
     }
 }

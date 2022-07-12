@@ -393,7 +393,7 @@
 </head>
 <body>
 
-<scan th:if="${userRole == 'ROLE_USER'} ">
+<scan th:if="${user.role == 'ROLE_USER'} ">
 
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
@@ -415,7 +415,7 @@
     </header>
 </scan>
 
-<scan th:if="${userRole == 'ROLE_ADMIN'}">
+<scan th:if="${user.role == 'ROLE_ADMIN'}">
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large"
          style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">

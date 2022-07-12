@@ -28,20 +28,23 @@ public class User {
     private String secondPassword;
 
     private String active;
+    private String role;
 
-    @ManyToMany(fetch = EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+//    @ManyToMany(fetch = EAGER)
+//    private Collection<Role> roles = new ArrayList<>();
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<ToDoList> toDoLists = new ArrayList<>();
 
-    public User(String name, String username, String password, String secondPassword) {
+    public User(String name, String username, String password, String secondPassword, String active, String role) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.secondPassword=secondPassword;
+        this.active = active;
+        this.role = role;
 
     }
 }

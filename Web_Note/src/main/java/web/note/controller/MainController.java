@@ -50,11 +50,6 @@ public class MainController {
             toDoListView = toDoList;
         }
         model.addAttribute("user", user);
-        String userRole = "";
-        Collection<Role> roles = user.getRoles();
-        for (Role role:roles)
-            userRole = role.getName();
-        model.addAttribute("userRole", userRole);
         model.addAttribute("toDoListView", toDoListView);
         return "main";
     }

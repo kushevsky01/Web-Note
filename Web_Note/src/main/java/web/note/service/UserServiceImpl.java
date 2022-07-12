@@ -1,9 +1,7 @@
 package web.note.service;
 
 import lombok.RequiredArgsConstructor;
-import web.note.model.Role;
 import web.note.model.User;
-import web.note.perository.RoleRepository;
 import web.note.perository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +20,6 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -39,9 +36,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User is banned");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+//        for (Role role : user.getRoles()) {
+//            authorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+        authorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
@@ -56,21 +54,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return true;
     }
 
-    @Override
-    public boolean saveRole(Role role) {
-        if (roleRepository.findByName(role.getName()) != null) {
-            return false;
-        }
-        roleRepository.save(role);
-        return true;
-    }
-
-    @Override
-    public void addRoleToUser(String username, String roleName) {
-        User user = userRepository.findByUsername(username);
-        Role role = roleRepository.findByName(roleName);
-        user.getRoles().add(role);
-    }
 
     @Override
     public User getUser(String username) {

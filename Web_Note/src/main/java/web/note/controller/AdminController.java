@@ -2,9 +2,7 @@ package web.note.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import web.note.model.Role;
 import web.note.model.User;
-import web.note.perository.RoleRepository;
 import web.note.perository.UserRepository;
 import web.note.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -18,9 +16,6 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
-
-    @Autowired
-    RoleRepository roleRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -42,19 +37,17 @@ public class AdminController {
 
     @PostMapping("/admin/userRole")
     private String redirectUserRole(@RequestParam Long userId,
-                                    @RequestParam Long roleId,
                                     @RequestParam String roleName){
 
+        User user = userRepository.findById(userId).get();
 
-        Role role = roleRepository.findById(roleId).get();
-        System.out.println(roleId);
 
         if (roleName.equals("ROLE_ADMIN")){
-            role.setName("ROLE_USER");
+            user.setRole("ROLE_USER");
         }else if(roleName.equals("ROLE_USER")){
-            role.setName("ROLE_ADMIN");
+            user.setRole("ROLE_ADMIN");
         }
-        roleRepository.saveAndFlush(role);
+        userRepository.saveAndFlush(user);
         return "redirect:/admin";
     }
 
@@ -71,7 +64,6 @@ public class AdminController {
         }else if(userActivity.equals("banned")){
             user.setActive("active");
         }
-        System.out.println(user.getActive());
         userRepository.saveAndFlush(user);
         return "redirect:/admin";
     }

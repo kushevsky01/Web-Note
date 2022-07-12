@@ -434,6 +434,7 @@
         document.getElementById("mySidebar").style.display = "block";
         document.getElementById("myOverlay").style.display = "block";
     }
+
     function w3_close() {
         document.getElementById("mySidebar").style.display = "none";
         document.getElementById("myOverlay").style.display = "none";
@@ -450,7 +451,6 @@
                 <th>ID</th>
                 <th>UserName</th>
                 <th>Password</th>
-                <th>Roles</th>
                 <th>Change Role</th>
                 <th>Activity</th>
                 </thead>
@@ -459,20 +459,15 @@
                         <td th:text="${users.id}"></td>
                         <td th:text="${users.username}"></td>
                         <td th:text="${users.password}"></td>
-                        <td th:each="role: ${users.roles}" th:text="${role.name}"></td>
-
                         <td>
-                            <scan th:each="role: ${users.roles}">
-                                <form th:action="@{/admin/userRole}" method="post">
-                                    <input type="hidden" name="userId" th:value="${users.id}"/>
-                                    <input type="hidden" name="roleId" th:value="${role.id}"/>
-                                    <input type="hidden" name="roleName" th:value="${role.name}"/>
-                                    <button type="submit" style="background:#4c5253;border:0;" th:text="${role.name}">
-                                    </button>
-                                </form>
-                            </scan>
+                            <form th:action="@{/admin/userRole}" method="post">
+                                <input type="hidden" name="userId" th:value="${users.id}"/>
+<!--                                <input type="hidden" name="roleId" th:value="${role.id}"/>-->
+                                <input type="hidden" name="roleName" th:value="${users.role}"/>
+                                <button type="submit" style="background:#4c5253;border:0;" th:text="${users.role}">
+                                </button>
+                            </form>
                         </td>
-
 
 
                         <td>
